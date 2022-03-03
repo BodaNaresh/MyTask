@@ -1,0 +1,77 @@
+<div>
+    <nav class="navbar navbar-light bg-primary">
+        <div class="txt">
+            <h1 >TODO APP</h1>
+            <input type="text"  class="input" [(ngModel)]="name" />&nbsp;&nbsp;
+            <button type="button" (click)="PostTodo()"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="exampleModal">
+            Add Todo
+            </button>
+        </div>
+    </nav>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <th>
+            S.No
+            </th>
+            <th>
+            ID
+            </th>
+            <th>
+            Name  
+            </th>
+            <th>
+            Status
+            </th>
+            <th>
+            CreationDate
+            </th>
+            <th>
+            LastUpdatedDate
+            </th>
+            <th>
+            Change Status Options
+            </th>
+            <th>
+            Actions
+            </th>
+        </thead>
+        <tbody *ngIf="Alltodo">
+            <tr *ngFor="let todos of Alltodo|async; let i=index">
+                <td>
+                   {{i+1}} 
+                </td>
+                <td>
+                    {{todos.ID}}
+                </td>
+                <td>
+                    {{todos.Name}}
+                </td>
+                <td>
+                   {{todos.Status && select}} 
+                </td>
+                <td>
+                    {{todos.CreationDate}}
+                </td>
+                <td>
+                    {{todos.LastUpdatedDate}}
+                </td>
+                <td>
+                    <label class="label" for="exampleCheck1" >Status</label>
+                    <select [(ngModel)]="select" name="ddlselect" id="stat" (ngModelchange)="Getstatval($event)" class="form-select"   aria-label="Default select example">
+                        <option selected>--select Status--</option>
+                        <option *ngIf="pending" value="Pending">Pending</option>
+                        <option  value="Inprogress">Inprogress</option>
+                        <option  value="Completed">Completed</option>
+                    </select>
+                </td>  
+                <td>
+                    <input type="button"  value="Delete"  (click)="Dlelete(todos.ID)" class="btn btn-danger"/>
+                </td>
+            </tr>
+        </tbody>
+      
+    </table>
+</div>
