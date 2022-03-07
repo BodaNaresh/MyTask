@@ -23,8 +23,7 @@ export class TodosComponent implements OnInit {
 
   ngOnInit(): void {
     // this.formvalue=this.formbuilder.group({
-    //   ID:[],
-    //   Name:[],
+    //   ID:[],s
     //   Status:[],
     //   CreationDate:[],
     //   LastUpdatedDate:[]
