@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj": {}
+    "D:\\Project\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj": {}
   },
   "projects": {
-    "D:\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj": {
+    "D:\\Project\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj",
+        "projectUniqueName": "D:\\Project\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj",
         "projectName": "TODOAPP",
-        "projectPath": "D:\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj",
+        "projectPath": "D:\\Project\\TodoApplication\\TODOAPP\\TODOAPP\\TODOAPP.csproj",
         "packagesPath": "C:\\Users\\naresh.boda\\.nuget\\packages\\",
-        "outputPath": "D:\\TodoApplication\\TODOAPP\\TODOAPP\\obj\\",
+        "outputPath": "D:\\Project\\TodoApplication\\TODOAPP\\TODOAPP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

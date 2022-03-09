@@ -10,25 +10,20 @@ export class TodosComponent implements OnInit {
   
   Alltodo:any;
   name:any;
-  status:any;
   pending:any;
   Inprogress:any;
   Completed:any;
   select:any;
   selected:any;
+  value:any;
   Getstatval:any;
+  status1:any;
+  ddlselect:any;
   
  
   constructor(private api:TodoService) { }
 
   ngOnInit(): void {
-    // this.formvalue=this.formbuilder.group({
-    //   ID:[],
-    //   Name:[],
-    //   Status:[],
-    //   CreationDate:[],
-    //   LastUpdatedDate:[]
-    // })
     this.GettTodoAll();
   }
 
@@ -41,16 +36,13 @@ export class TodosComponent implements OnInit {
   //Posting Todos
   PostTodo(){
     this.api.createtodo(this.name);
-       this.GettTodoAll();
-   
   }
 
   //Updating todo
-  // UpdateTodo(){
-  //     this.api.update(todo).subscribe(()=>{
-        
-  //     })
-  // }
+  UpdateTodo(id:number,status1:string){
+      this.api.putstatval(id,status1);
+      this.GettTodoAll();
+  }
 
  
 

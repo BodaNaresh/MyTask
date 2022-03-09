@@ -10,12 +10,13 @@ export class TodoService {
   constructor(private httpclient:HttpClient) { }
   
   private url="http://localhost:25193/api/Todos/";
+
   name:any;
   result:any;
   value:any;
   status:any
-  select:any;
   modified:any;
+  act:any;
 
   //get method
   Gettodo(){
@@ -32,19 +33,17 @@ export class TodoService {
     });
   }
 
-  // Getstatval(val:string){
-  //   return this.httpclient.post<any>(this.url,{
-  //    select: val
-  //   }).toPromise().then((res:any)=>{
-  //     this.modified=res;
-  //   })
+  //put method
+  putstatval(id:number,status1:string){
+    return this.httpclient.put<any>(this.url+id,{
+     act : id,
+     status: status1
+     
+    }).toPromise().then((res:any)=>{
+      this.modified=res;
+    })
     
-  // }
-
-  //update todo
-  // update(todo:Models){
-  //   return this.httpclient.put<Models>(this.url+'todo.ID',todo);
-  // }
+  }
 
   //delete todo
   deletetodo(id:number){

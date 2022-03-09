@@ -31,7 +31,7 @@
             <th>
             LastUpdatedDate
             </th>
-            <th>
+            <th >
             Change Status Options
             </th>
             <th>
@@ -49,8 +49,8 @@
                 <td>
                     {{todos.Name}}
                 </td>
-                <td>
-                   {{todos.Status && select}} 
+                <td >
+                   {{todos.Status}} 
                 </td>
                 <td>
                     {{todos.CreationDate}}
@@ -60,17 +60,21 @@
                 </td>
                 <td>
                     <label class="label" for="exampleCheck1" >Status</label>
-                    <select [(ngModel)]="select" name="ddlselect" id="stat" (ngModelchange)="Getstatval($event)" class="form-select"   aria-label="Default select example">
-                        <option selected>--select Status--</option>
+                    <div >
+                    <select [(ngModel)]="select"  name="ddlselect" (ngModelchange)="Getstatval($event)" class="form-select"   aria-label="Default select example">
+                        <option  selected>--select Status--</option>
                         <option *ngIf="pending" value="Pending">Pending</option>
                         <option  value="Inprogress">Inprogress</option>
                         <option  value="Completed">Completed</option>
                     </select>
+                </div>
                 </td>  
                 <td>
+                    <input type="button" value="updatestatus" (click)="UpdateTodo(todos.ID,select)" class="btn btn-secondary"/>
                     <input type="button"  value="Delete"  (click)="Dlelete(todos.ID)" class="btn btn-danger"/>
                 </td>
             </tr>
+            
         </tbody>
       
     </table>
