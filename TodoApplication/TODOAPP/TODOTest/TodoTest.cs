@@ -18,7 +18,6 @@ namespace TODOTest
         {
             var config = Substitute.For<IConfiguration>();
             TodoService service = TodoService.getInstance(config);
-
             service.GetTodo();
 
             Assert.Pass();

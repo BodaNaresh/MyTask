@@ -33,7 +33,7 @@ export class TodoService {
   }
 
   // Getstatval(val:string){
-  //   return this.httpclient.post<any>(this.url,{
+  //   return this.httpclient.put<any>(this.url,{
   //    select: val
   //   }).toPromise().then((res:any)=>{
   //     this.modified=res;
