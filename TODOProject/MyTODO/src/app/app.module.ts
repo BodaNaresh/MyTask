@@ -11,7 +11,8 @@ import { TodoService } from './TodoServices/todo.service';
 @NgModule({
   declarations: [
     AppComponent,
-    TodosComponent
+    TodosComponent,
+   
   ],
   imports: [
     BrowserModule,

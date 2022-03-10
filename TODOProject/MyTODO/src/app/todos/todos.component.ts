@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToDoModel } from 'src/Models/TodoModel';
 import { TodoService } from '../TodoServices/todo.service';
 
 @Component({
@@ -8,40 +9,47 @@ import { TodoService } from '../TodoServices/todo.service';
 })
 export class TodosComponent implements OnInit {
   
-  Alltodo:any;
+  
   name:any;
   pending:any;
   Inprogress:any;
   Completed:any;
   select:any;
-  selected:any;
+  selected:string="";
   value:any;
-  Getstatval:any;
   status1:any;
   ddlselect:any;
+  Searchterm!:string;
   
+  Alltodo:ToDoModel[]=[];
+  filterTodo:ToDoModel[]=[];
+  Showtodo:ToDoModel[]=[];
  
   constructor(private api:TodoService) { }
 
   ngOnInit(): void {
     this.GettTodoAll();
+    
   }
 
   //Getting Todos
   GettTodoAll(){
-    this.Alltodo=this.api.Gettodo();
+    this.api.Gettodo().subscribe((result)=>
+    {this.Alltodo=result},()=>{} ,
+    ()=>{this.Showtodo=this.Alltodo;} );
 
   }
 
   //Posting Todos
   PostTodo(){
-    this.api.createtodo(this.name);
+    this.api.createtodo(this.name).then(()=>
+    this.GettTodoAll());
   }
 
   //Updating todo
-  UpdateTodo(id:number,status1:string){
-      this.api.putstatval(id,status1);
-      this.GettTodoAll();
+  UpdateTodo(id:number,newstatus:string){
+      this.api.putstatval(id,newstatus).then(()=>
+      this.GettTodoAll());
   }
 
  
@@ -53,5 +61,21 @@ export class TodosComponent implements OnInit {
        this.GettTodoAll();
      });
    }
+  }
+  
+  //changing status
+  Getstatusval(event:any){
+    this.selected=event.target.value;
+  }
+  
+  //Searching todos
+  Search(){
+    this.filterTodo=this.Alltodo.filter((tag:any)=>{
+      return tag.Name.toLowerCase().match(this.Searchterm.toLowerCase());
+    })
+    this.Showtodo=this.filterTodo;
+    if(this.Searchterm==" ") {
+      this.Showtodo=this.Alltodo;
+    };
   }
 }

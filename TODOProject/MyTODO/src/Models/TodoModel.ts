@@ -1,8 +1,9 @@
-export class Models {
-    ID:number=0;
-    Name:string="";
-    Status:string="";
+import { Status } from "./todoenum";
+
+export interface ToDoModel {
+    ID:number;
+    Name:string;
+    Status:Status;
     CreationDate?:Date;
     LastUpdatedDate?:Date;
-  
 }

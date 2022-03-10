@@ -7,6 +7,9 @@
             Add Todo
             </button>
         </div>
+        <div class="search">
+        <input type="text" class="text" [(ngModel)]="Searchterm" placeholder="Search by Name..." (input)="Search()" />&nbsp;&nbsp;
+    </div>
     </nav>
 </div>
 
@@ -38,40 +41,40 @@
             Actions
             </th>
         </thead>
-        <tbody *ngIf="Alltodo">
-            <tr *ngFor="let todos of Alltodo|async; let i=index">
+        <tbody>
+            <tr *ngFor="let todo of Showtodo; let i=index">
                 <td>
                    {{i+1}} 
                 </td>
                 <td>
-                    {{todos.ID}}
+                    {{todo.ID}}
                 </td>
                 <td>
-                    {{todos.Name}}
+                    {{todo.Name}}
                 </td>
                 <td >
-                   {{todos.Status}} 
+                   {{todo.Status}} 
                 </td>
                 <td>
-                    {{todos.CreationDate}}
+                    {{todo.CreationDate}}
                 </td>
                 <td>
-                    {{todos.LastUpdatedDate}}
+                    {{todo.LastUpdatedDate}}
                 </td>
                 <td>
                     <label class="label" for="exampleCheck1" >Status</label>
                     <div >
-                    <select [(ngModel)]="select"  name="ddlselect" (ngModelchange)="Getstatval($event)" class="form-select"   aria-label="Default select example">
+                    <select  name="ddlselect" [(ngModel)]="select" (ngModelchange)="Getstatusval($event)" class="form-select"   aria-label="Default select example">
                         <option  selected>--select Status--</option>
-                        <option *ngIf="pending" value="Pending">Pending</option>
+                        <option *ngIf="todo.Status.toString() != 'Pending' " value="Pending">Pending</option>
                         <option  value="Inprogress">Inprogress</option>
                         <option  value="Completed">Completed</option>
                     </select>
                 </div>
                 </td>  
                 <td>
-                    <input type="button" value="updatestatus" (click)="UpdateTodo(todos.ID,select)" class="btn btn-secondary"/>
-                    <input type="button"  value="Delete"  (click)="Dlelete(todos.ID)" class="btn btn-danger"/>
+                    <input type="button" value="updatestatus" (click)="UpdateTodo(todo.ID,select)" class="btn btn-secondary"/>
+                    <input type="button"  value="Delete"  (click)="Dlelete(todo.ID)" class="btn btn-danger"/>
                 </td>
             </tr>
             
