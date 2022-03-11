@@ -3,7 +3,7 @@
         <div class="txt">
             <h1 >TODO APP</h1>
             <input type="text"  class="input" [(ngModel)]="name" />&nbsp;&nbsp;
-            <button type="button" (click)="PostTodo()"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="exampleModal">
+            <button type="button" (click)="PostTodo()"  class="btn btn-success" >
             Add Todo
             </button>
         </div>
@@ -12,7 +12,9 @@
     </div>
     </nav>
 </div>
-
+<div>
+    <p>counter: Pending :{{pendingCount()}}</p>
+</div>
 <div>
     <table class="table">
         <thead>
@@ -64,7 +66,7 @@
                 <td>
                     <label class="label" for="exampleCheck1" >Status</label>
                     <div >
-                    <select  name="ddlselect" [(ngModel)]="select" (ngModelchange)="Getstatusval($event)" class="form-select"   aria-label="Default select example">
+                    <select  #select class="form-select"   aria-label="Default select example">
                         <option  selected>--select Status--</option>
                         <option *ngIf="todo.Status.toString() != 'Pending' " value="Pending">Pending</option>
                         <option  value="Inprogress">Inprogress</option>
@@ -73,7 +75,7 @@
                 </div>
                 </td>  
                 <td>
-                    <input type="button" value="updatestatus" (click)="UpdateTodo(todo.ID,select)" class="btn btn-secondary"/>
+                    <input type="button" value="updatestatus" (click)="UpdateTodo(todo.ID,select.value)" class="btn btn-secondary"/>
                     <input type="button"  value="Delete"  (click)="Dlelete(todo.ID)" class="btn btn-danger"/>
                 </td>
             </tr>

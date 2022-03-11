@@ -13,12 +13,12 @@ export class TodoService {
   
   private url="http://localhost:25193/api/Todos/";
 
-  name:any;
-  result:any;
-  value:any;
-  status:any
-  modified:any;
-  act:any;
+  name:String="";
+  result:String="";
+  value:string="";
+  status:string="";
+  modified:string="";
+  act:string="";
 
   //get method
   Gettodo(){

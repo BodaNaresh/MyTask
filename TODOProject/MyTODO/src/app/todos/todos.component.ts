@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Status } from 'src/Models/todoenum';
 import { ToDoModel } from 'src/Models/TodoModel';
 import { TodoService } from '../TodoServices/todo.service';
 
@@ -10,17 +11,14 @@ import { TodoService } from '../TodoServices/todo.service';
 export class TodosComponent implements OnInit {
   
   
-  name:any;
+  name:string=" ";
   pending:any;
   Inprogress:any;
   Completed:any;
-  select:any;
+  select:string="";
   selected:string="";
-  value:any;
-  status1:any;
-  ddlselect:any;
   Searchterm!:string;
-  
+
   Alltodo:ToDoModel[]=[];
   filterTodo:ToDoModel[]=[];
   Showtodo:ToDoModel[]=[];
@@ -37,7 +35,6 @@ export class TodosComponent implements OnInit {
     this.api.Gettodo().subscribe((result)=>
     {this.Alltodo=result},()=>{} ,
     ()=>{this.Showtodo=this.Alltodo;} );
-
   }
 
   //Posting Todos
@@ -52,8 +49,6 @@ export class TodosComponent implements OnInit {
       this.GettTodoAll());
   }
 
- 
-
  // Delete Todo
   Dlelete(id:number){
    if(confirm("Are you sure u want to delete")){
@@ -63,19 +58,21 @@ export class TodosComponent implements OnInit {
    }
   }
   
-  //changing status
-  Getstatusval(event:any){
-    this.selected=event.target.value;
-  }
-  
   //Searching todos
   Search(){
     this.filterTodo=this.Alltodo.filter((tag:any)=>{
       return tag.Name.toLowerCase().match(this.Searchterm.toLowerCase());
     })
     this.Showtodo=this.filterTodo;
-    if(this.Searchterm==" ") {
-      this.Showtodo=this.Alltodo;
-    };
+  }
+
+  pendingCount(){
+    return this.Alltodo.reduce((p,c)=>{
+      let count=0;
+      if(c.Status==Status.Completed){
+        count=1;
+      }
+      return p+count;
+     },0)
   }
 }
