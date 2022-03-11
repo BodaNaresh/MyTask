@@ -72,7 +72,6 @@ namespace TODOAPP.Services
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
-                cmd.Parameters.AddWithValue("@Name", act.Name);
                 cmd.Parameters.AddWithValue("@Status", act.Status);
                 cmd.Parameters.AddWithValue("@LastUpdatedDate", DateTime.Now);
                 using (var dad = new SqlDataAdapter(cmd))

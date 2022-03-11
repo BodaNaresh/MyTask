@@ -12,7 +12,7 @@ namespace TODOAPP.Models
     {
         [Key]
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } 
         public string Status { get; set; } = "pending";
         public DateTime CreationDate { get; set; }
         public DateTime LastUpdated { get; set; }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Status } from 'src/Models/todoenum';
+import { ToDoModel } from 'src/Models/TodoModel';
 import { TodoService } from '../TodoServices/todo.service';
 
 @Component({
@@ -8,51 +10,44 @@ import { TodoService } from '../TodoServices/todo.service';
 })
 export class TodosComponent implements OnInit {
   
-  Alltodo:any;
-  name:any;
-  status:any;
+  
+  name:string=" ";
   pending:any;
   Inprogress:any;
   Completed:any;
-  select:any;
-  selected:any;
-  Getstatval:any;
-  
+  select:string="";
+  selected:string="";
+  Searchterm!:string;
+
+  Alltodo:ToDoModel[]=[];
+  filterTodo:ToDoModel[]=[];
+  Showtodo:ToDoModel[]=[];
  
   constructor(private api:TodoService) { }
 
   ngOnInit(): void {
-    // this.formvalue=this.formbuilder.group({
-    //   ID:[],
-    //   Name:[],
-    //   Status:[],
-    //   CreationDate:[],
-    //   LastUpdatedDate:[]
-    // })
     this.GettTodoAll();
+    
   }
 
   //Getting Todos
   GettTodoAll(){
-    this.Alltodo=this.api.Gettodo();
-
+    this.api.Gettodo().subscribe((result)=>
+    {this.Alltodo=result},()=>{} ,
+    ()=>{this.Showtodo=this.Alltodo;} );
   }
 
   //Posting Todos
   PostTodo(){
-    this.api.createtodo(this.name);
-       this.GettTodoAll();
-   
+    this.api.createtodo(this.name).then(()=>
+    this.GettTodoAll());
   }
 
   //Updating todo
-  // UpdateTodo(){
-  //     this.api.update(todo).subscribe(()=>{
-        
-  //     })
-  // }
-
- 
+  UpdateTodo(id:number,newstatus:string){
+      this.api.putstatval(id,newstatus).then(()=>
+      this.GettTodoAll());
+  }
 
  // Delete Todo
   Dlelete(id:number){
@@ -61,5 +56,23 @@ export class TodosComponent implements OnInit {
        this.GettTodoAll();
      });
    }
+  }
+  
+  //Searching todos
+  Search(){
+    this.filterTodo=this.Alltodo.filter((tag:any)=>{
+      return tag.Name.toLowerCase().match(this.Searchterm.toLowerCase());
+    })
+    this.Showtodo=this.filterTodo;
+  }
+
+  pendingCount(){
+    return this.Alltodo.reduce((p,c)=>{
+      let count=0;
+      if(c.Status==Status.Completed){
+        count=1;
+      }
+      return p+count;
+     },0)
   }
 }
