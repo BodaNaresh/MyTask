@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from 'src/Models/todoenum';
-import { ToDoModel } from 'src/Models/TodoModel';
+import { IToDoModel } from 'src/Models/TodoModel';
 import { TodoService } from '../TodoServices/todo.service';
 
 @Component({
@@ -9,43 +8,34 @@ import { TodoService } from '../TodoServices/todo.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  
-  
-  name:string=" ";
-  pending:any;
-  Inprogress:any;
-  Completed:any;
-  select:string="";
-  selected:string="";
-  Searchterm!:string;
-
-  Alltodo:ToDoModel[]=[];
-  filterTodo:ToDoModel[]=[];
-  Showtodo:ToDoModel[]=[];
+  name:string="";
+  Searchterm:string="";
+  Alltodo:IToDoModel[]=[];
+  filterTodo:IToDoModel[]=[];
+  Showtodo:IToDoModel[]=[];
  
   constructor(private api:TodoService) { }
 
   ngOnInit(): void {
     this.GettTodoAll();
-    
   }
 
   //Getting Todos
   GettTodoAll(){
     this.api.Gettodo().subscribe((result)=>
-    {this.Alltodo=result},()=>{} ,
-    ()=>{this.Showtodo=this.Alltodo;} );
+    {this.Alltodo=result},()=>{},()=>{this.Showtodo=this.Alltodo});
   }
 
   //Posting Todos
   PostTodo(){
     this.api.createtodo(this.name).then(()=>
     this.GettTodoAll());
+    this.name=" ";
   }
 
   //Updating todo
-  UpdateTodo(id:number,newstatus:string){
-      this.api.putstatval(id,newstatus).then(()=>
+  UpdateTodo(id:number, newName:string, newstatus:string ){
+      this.api.putstatusval(id, newName, newstatus).then(()=>
       this.GettTodoAll());
   }
 
@@ -66,13 +56,25 @@ export class TodosComponent implements OnInit {
     this.Showtodo=this.filterTodo;
   }
 
-  pendingCount(){
-    return this.Alltodo.reduce((p,c)=>{
-      let count=0;
-      if(c.Status==Status.Completed){
-        count=1;
-      }
+  //reduce todos
+  TotalCount(){
+    return this.Alltodo.reduce((p)=>{
+      let count=1;
       return p+count;
      },0)
   }
+  
+  PendingCount(){
+   return this.Alltodo.filter(res=>(res.Status.toString() === 'Pending')).length;
+  }
+
+  Inprogresscount(){
+    return this.Alltodo.filter(output=>(output.Status.toString()==='Inprogress')).length;
+  }
+
+  Completedcount(){
+    return this.Alltodo.filter(output=>(output.Status.toString()==='Completed')).length;
+  }
+
+  
 }

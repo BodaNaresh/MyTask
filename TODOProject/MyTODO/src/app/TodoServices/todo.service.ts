@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToDoModel } from 'src/Models/TodoModel';
+import { IToDoModel } from 'src/Models/TodoModel';
 import {map} from "rxjs/operators";
 
 
@@ -15,34 +15,31 @@ export class TodoService {
 
   name:String="";
   result:String="";
-  value:string="";
-  status:string="";
   modified:string="";
-  act:string="";
+  TodoId:number=0;
 
   //get method
   Gettodo(){
-    return this.httpclient.get<ToDoModel[]>(this.url)
+    return this.httpclient.get<IToDoModel[]>(this.url)
       .pipe(map((res:any)=>{
         return res;
-        
       }))
   }
 
   //post method
- async createtodo(name:string){
-    return await this.httpclient.post<any>(this.url,{
+  async createtodo(name:string){
+    return await this.httpclient.post<IToDoModel>(this.url,{
       name: name
     }).toPromise().then((data:any)=>{
       this.result= data;
-      this.name='';
     });
   }
 
   //put method
-  async putstatval(id:number,newstatus:string){
-    return await this.httpclient.put<any>(this.url+id,{
-     act : id,
+  async putstatusval(id:number, newName:string, newstatus:string){
+    return await this.httpclient.put<IToDoModel>(this.url+id,{
+     TodoId : id,
+     Name: newName,
      status: newstatus
     }).toPromise().then((res:any)=>{
       this.modified=res;
@@ -51,8 +48,8 @@ export class TodoService {
 
   //delete todo
   deletetodo(id:number){
-    var url1=this.url+id;
-    return this.httpclient.delete<ToDoModel>(url1);
+    var newUrl=this.url+id;
+    return this.httpclient.delete<IToDoModel>(newUrl);
   }
 }
 

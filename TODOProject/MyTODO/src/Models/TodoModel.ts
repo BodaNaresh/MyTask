@@ -1,6 +1,6 @@
 import { Status } from "./todoenum";
 
-export interface ToDoModel {
+export interface IToDoModel {
     ID:number;
     Name:string;
     Status:Status;

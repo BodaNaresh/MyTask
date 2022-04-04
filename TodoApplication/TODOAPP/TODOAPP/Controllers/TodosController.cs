@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -18,16 +19,18 @@ using TODOAPP.Services;
 
 namespace TODOAPP.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class TodosController : ControllerBase
     {
 
         private readonly IConfiguration configuration;
+        
         public TodosController(IConfiguration config)
         {
             configuration = config;
-
+           
         }
 
         [HttpGet]

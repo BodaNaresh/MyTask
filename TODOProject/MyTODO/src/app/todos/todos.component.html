@@ -1,46 +1,48 @@
-<div>
-    <nav class="navbar navbar-light bg-primary">
+<div class="cls1">
+    <nav class="navbar navbar-light bg-primary" id="size">
         <div class="txt">
-            <h1 >TODO APP</h1>
-            <input type="text"  class="input" [(ngModel)]="name" />&nbsp;&nbsp;
+            <h1 class="app" >TODO APP</h1>
+            <input type="text"  class="input" [(ngModel)]="name" placeholder="add todo here.." />&nbsp;&nbsp;
             <button type="button" (click)="PostTodo()"  class="btn btn-success" >
             Add Todo
             </button>
         </div>
-        <div class="search">
-        <input type="text" class="text" [(ngModel)]="Searchterm" placeholder="Search by Name..." (input)="Search()" />&nbsp;&nbsp;
-    </div>
+        <div class="search"  >
+           <input  type="text" class="text" [(ngModel)]="Searchterm" placeholder="Search by Name..." (input)="Search()" />&nbsp;&nbsp;
+        </div>
     </nav>
-</div>
+</div> 
 <div>
-    <p>counter: Pending :{{pendingCount()}}</p>
+    <h3>Status Summary</h3>
+    <div class="summary">
+        <h5>
+            <p>Total Count :{{TotalCount()}}</p>&nbsp;
+            <p>Pending count:{{PendingCount()}}</p>&nbsp;
+            <p>Inprogress count:{{Inprogresscount()}}</p>&nbsp;
+            <p>Completed count:{{Completedcount()}}</p>
+        </h5>
+    </div>
 </div>
 <div>
     <table class="table">
         <thead>
             <th>
-            S.No
+              S.No
+            </th>
+            <th >&nbsp;&nbsp;
+               Name  
             </th>
             <th>
-            ID
+              Creation Date
             </th>
             <th>
-            Name  
+              LastUpdated Date
             </th>
-            <th>
-            Status
+            <th >&nbsp;&nbsp;
+              Change Status Options
             </th>
-            <th>
-            CreationDate
-            </th>
-            <th>
-            LastUpdatedDate
-            </th>
-            <th >
-            Change Status Options
-            </th>
-            <th>
-            Actions
+            <th>&nbsp;&nbsp;
+              Actions
             </th>
         </thead>
         <tbody>
@@ -49,34 +51,27 @@
                    {{i+1}} 
                 </td>
                 <td>
-                    {{todo.ID}}
+                   <input type="text"  class="inputtext" [(ngModel)]="todo.Name"/>
                 </td>
                 <td>
-                    {{todo.Name}}
-                </td>
-                <td >
-                   {{todo.Status}} 
+                    {{todo.CreationDate | date }}
                 </td>
                 <td>
-                    {{todo.CreationDate}}
+                    {{todo.LastUpdatedDate | date}}
                 </td>
                 <td>
-                    {{todo.LastUpdatedDate}}
-                </td>
-                <td>
-                    <label class="label" for="exampleCheck1" >Status</label>
-                    <div >
-                    <select  #select class="form-select"   aria-label="Default select example">
-                        <option  selected>--select Status--</option>
-                        <option *ngIf="todo.Status.toString() != 'Pending' " value="Pending">Pending</option>
-                        <option  value="Inprogress">Inprogress</option>
-                        <option  value="Completed">Completed</option>
+                    <select  #select class="form-select"  aria-label="Default select example">
+                        <option  selected> {{todo.Status}} </option>
+                        <option *ngIf="todo.Status.toString() != 'Pending'" value="Pending">Pending</option>
+                        <option *ngIf="todo.Status.toString() != 'Inprogress'" value="Inprogress">Inprogress</option>
+                        <option *ngIf="todo.Status.toString() != 'Completed'" value="Completed">Completed</option>
                     </select>
-                </div>
                 </td>  
                 <td>
-                    <input type="button" value="updatestatus" (click)="UpdateTodo(todo.ID,select.value)" class="btn btn-secondary"/>
-                    <input type="button"  value="Delete"  (click)="Dlelete(todo.ID)" class="btn btn-danger"/>
+                    <button  (click)="UpdateTodo(todo.ID,todo.Name,select.value)" class="btn btn-primary">Update</button>|
+                    <button (click)="Dlelete(todo.ID)" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/> </svg>
+                    </button>
                 </td>
             </tr>
             
@@ -84,3 +79,4 @@
       
     </table>
 </div>
+

@@ -14,10 +14,11 @@ namespace TODOAPP.Services
     {
 
         private readonly IConfiguration configuration;
+       
         private TodoService(IConfiguration config)
         {
             configuration = config;
-
+         
         }
 
         public static TodoService getInstance(IConfiguration config )
@@ -35,7 +36,24 @@ namespace TODOAPP.Services
                 cmd.CommandType = CommandType.StoredProcedure;
                 dad.Fill(dt);
             }
-            
+
+            //DataTable table = new DataTable();
+            //string sqlDataSource = configuration.GetConnectionString("DefaultConnection");
+            //SqlDataReader myReader;
+
+            //using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            //{
+            //    myCon.Open();
+
+            //    using (SqlCommand myCommand = new SqlCommand("GetTodoList", myCon))
+            //    {
+
+            //        myReader = myCommand.ExecuteReader();
+            //        table.Load(myReader);
+            //        myReader.Close();
+            //        myCon.Close();
+            //    }
+            //}
 
             return dt;
         }
@@ -72,6 +90,7 @@ namespace TODOAPP.Services
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID", id);
+                cmd.Parameters.AddWithValue("@Name", act.Name);
                 cmd.Parameters.AddWithValue("@Status", act.Status);
                 cmd.Parameters.AddWithValue("@LastUpdatedDate", DateTime.Now);
                 using (var dad = new SqlDataAdapter(cmd))
